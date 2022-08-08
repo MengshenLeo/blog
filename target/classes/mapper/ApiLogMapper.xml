@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.mengshenleo.blog.mapper.ApiLogMapper">
+
+    <update id="updateById">
+        UPDATE blog.api_log
+        SET is_successful = #{isSuccessful},
+            end_time = #{endTime},
+            message = #{message}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getList" resultType="fun.mengshenleo.blog.pojo.ApiLog">
+        SELECT * FROM blog.api_log
+        <if test="id != null">
+            WHERE id = #{id}
+        </if>
+    </select>
+
+</mapper>
