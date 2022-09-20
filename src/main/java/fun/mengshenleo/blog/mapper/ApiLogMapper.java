@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import fun.mengshenleo.blog.pojo.ApiLog;
 import fun.mengshenleo.blog.req.ApiLogReq;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,7 +35,6 @@ public interface ApiLogMapper extends BaseMapper<ApiLog> {
      * @param apiLog
      * @return
      */
-    @Override
-    int insert(ApiLog apiLog);
+    int insertBatch(@Param("entities") List<ApiLog> apiLog);
 
 }

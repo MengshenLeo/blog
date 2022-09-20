@@ -1,11 +1,15 @@
 package fun.mengshenleo.blog.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.extension.api.R;
+import fun.mengshenleo.blog.listener.ExcelListener;
 import fun.mengshenleo.blog.utils.DownloadExcel;
 import fun.mengshenleo.blog.domain.ResultInfo;
 import fun.mengshenleo.blog.pojo.ApiLog;
 import fun.mengshenleo.blog.req.ApiLogReq;
 import fun.mengshenleo.blog.service.ApiLogService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -41,5 +45,12 @@ public class ApiLogController {
         List<ApiLog> list = apiLogService.getList(apiLogReq);
         DownloadExcel.download(response, ApiLog.class,list,"apiLog");
         return ResultInfo.ok("接口日志表格导出成功");
+    }
+
+    @PostMapping("/uploadExcel")
+    @ResponseBody
+    public ResultInfo<String> uploadExcel(MultipartFile file){
+        Boolean uploadExcel = apiLogService.uploadExcel(file);
+        return uploadExcel ? ResultInfo.ok("导入成功"):ResultInfo.error("导入失败");
     }
 }

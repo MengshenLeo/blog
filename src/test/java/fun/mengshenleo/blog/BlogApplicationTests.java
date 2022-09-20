@@ -1,6 +1,9 @@
 package fun.mengshenleo.blog;
 
+import com.alibaba.excel.EasyExcel;
+import fun.mengshenleo.blog.listener.ExcelListener;
 import fun.mengshenleo.blog.mapper.UserMapper;
+import fun.mengshenleo.blog.pojo.ApiLog;
 import fun.mengshenleo.blog.pojo.PersonInfo;
 import fun.mengshenleo.blog.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -10,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 class BlogApplicationTests {
@@ -53,6 +57,23 @@ class BlogApplicationTests {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         sample.setCreateTime(timestamp);
         userMapper.insert(sample);
+    }
+
+    @Test
+    void testExcelRead(){
+
+        ExcelListener excelListener = new ExcelListener();
+
+        String file = "C:\\Users\\29458\\Desktop\\apiLog.xlsx";
+        EasyExcel
+                .read(file, ApiLog.class,excelListener)
+                .sheet("表1")
+                .doRead();
+        List<ApiLog> data = excelListener.getData();
+        for (ApiLog datum : data) {
+            System.out.println(datum);
+        }
+
     }
 
 }

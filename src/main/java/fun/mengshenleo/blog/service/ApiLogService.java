@@ -4,6 +4,7 @@ package fun.mengshenleo.blog.service;
 import fun.mengshenleo.blog.pojo.ApiLog;
 import fun.mengshenleo.blog.req.ApiLogReq;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,11 @@ public interface ApiLogService {
      * @return
      */
     List<ApiLog> getList(ApiLogReq apiLogReq);
+
+    /**
+     * 上传文件
+     * @param file
+     * @return
+     */
+    Boolean uploadExcel(MultipartFile file);
 }
